@@ -1,26 +1,161 @@
-@import "tailwindcss";
+/* =========================
+   Neo Lime Dark Theme
+   ========================= */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #050607;
+  --bg-soft: #0b0f0c;
+  --lime: #b6ff3b;
+  --lime-dim: #6aa80f;
+  --text: #e6f2e6;
+  --muted: #9aa89a;
+  --border: rgba(182, 255, 59, 0.15);
+  --glow: rgba(182, 255, 59, 0.35);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: radial-gradient(
+      circle at top,
+      rgba(182, 255, 59, 0.08),
+      transparent 40%
+    ),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* Links */
+a {
+  color: var(--lime);
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+a:hover {
+  color: #d7ff7a;
+  text-shadow: 0 0 8px var(--glow);
+}
+
+/* Container */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(10, 12, 10, 0.7);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar h1 {
+  color: var(--lime);
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px var(--glow);
+}
+
+/* Buttons */
+button {
+  background: linear-gradient(145deg, #0f140f, #070a07);
+  color: var(--lime);
+  border: 1px solid var(--border);
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 0 transparent;
+}
+
+button:hover {
+  box-shadow: 0 0 15px var(--glow);
+  border-color: var(--btn-color);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Cards */
+.card {
+  background: linear-gradient(
+    145deg,
+    rgba(15, 18, 15, 0.9),
+    rgba(5, 7, 5, 0.9)
+  );
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(182, 255, 59, 0.4);
+  box-shadow: 0 0 25px var(--glow);
+}
+
+/* Inputs */
+input, textarea {
+  width: 100%;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--text);
+  outline: none;
+  transition: 0.2s ease;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--lime);
+  box-shadow: 0 0 12px var(--glow);
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: var(--text);
+  letter-spacing: 1px;
+}
+
+p {
+  color: var(--muted);
+}
+
+/* Glow accent line */
+.glow-line {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--lime),
+    transparent
+  );
+  box-shadow: 0 0 10px var(--glow);
+  margin: 1rem 0;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  margin-top: 3rem;
 }
