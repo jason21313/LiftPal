@@ -1,16 +1,32 @@
+'use server';
 import "./globals.css"
-import Header from "./components/Header";
-import Days from "./components/Days";
-import Message from "./components/Message";
-import CreateEditButtons from "./components/CreateEditButtons";
+import TransitionButton from "./components/TransitionButton";
+import LoginButton from "./components/LoginButton";
+import {prisma} from "./lib/prisma";
 
-export default function Home() {
-  return (
-    <>
-          <Header />
-          <Days text="Which Day's Workout Would you like to track?" />
-          <Message />
-          <CreateEditButtons />
-    </>
-  );
+export async function login({email,password}:{email:string,password:string}) {
+    const user = await prisma.user.findUnique({
+        where:{
+            email: email,
+        }
+    })
+    if(user && user.email==email && user.password==password){
+        console.log("found user", user)
+        return true;
+    }else{
+        console.log("user not found")
+        return false;
+    }
+}
+
+
+export default async function Login() {
+    return (
+        <div>
+        <input id="emailLogin" type="text" placeholder="Username" />
+        <input id="passwordLogin" type="password" placeholder="Password" />
+        <LoginButton/>
+        <TransitionButton buttonText="Create Account" pageText="create-account" color="var(--lime)" />
+        </div>
+    );
 }

@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User{
+  id String @id @default(cuid())
+  email String @unique
+  password String
+  name String?
+
+  workoutPlans WorkoutPlan[]
+  workoutLogs WorkoutLog[]
+}
+
+model WorkoutPlan{
+  id String@id @default(cuid())
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+
+  name String
+  workouts Workout[]
+}
+
+model Workout{
+  id String @id @default(cuid())
+
+  planId String
+  plan WorkoutPlan @relation(fields: [planId], references: [id])
+
+  name String
+  exercises Exercise[]
+}
+
+model Exercise{
+  id String @id @default(cuid())
+
+  workoutId String
+  workout Workout @relation(fields: [workoutId], references: [id])
+
+  name String
+  sets Int
+  weight Float
+  reps String
+
+  exerciseLogs ExerciseLog[]
+}
+
+model WorkoutLog{
+  id String @id @default(cuid())
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+
+  name String
+  date DateTime @default(now())
+  exerciseLogs ExerciseLog[]
+}
+
+model ExerciseLog{
+  id String @id @default(cuid())
+
+  logId String
+  log WorkoutLog @relation(fields: [logId], references: [id])
+
+  exerciseId String
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
+
+  setLog SetLog[]
+}
+
+model SetLog{
+  id String @id @default(cuid())
+
+  logId String
+  log ExerciseLog @relation(fields: [logId], references: [id])
+
+  setNumber Int
+  weight Float
+  reps Int
+}

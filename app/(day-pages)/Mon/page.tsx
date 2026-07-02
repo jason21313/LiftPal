@@ -1,11 +1,12 @@
-import TransitionButton from "../components/TransitionButton";
+import TransitionButton from "../../components/TransitionButton";
 
-export default function EditPage(){
-    return(
+export default function Mon() {
+    return (
         <div>
-            <h1>This is the edit page</h1>
+            <h2>Mon</h2>
             <TransitionButton buttonText="Click here to return to the home page" pageText="Home" color="var(--lime)" />
+
         </div>
     )
-}
+}   
 
