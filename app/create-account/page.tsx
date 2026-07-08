@@ -1,18 +1,17 @@
 'use server';
 import TransitionButton from "../components/TransitionButton";
 import CreateAccountButton from "../components/CreateAccountButton";
+import {prisma} from "../lib/prisma";
 
 export async function createUser({email,password,name}:{email:string,password:string,name:string}) {
-    // const user = await prisma.user.create({
-    //     data:{
-    //         email: email,
-    //         password: password,
-    //         name: name
-    //     }
-    // })
-    const user = email+password+name
-
-    console.log("created user", user)
+    const user = await prisma.user.create({
+        data:{
+            email: email,
+            password: password,
+            name: name
+        }
+    })
+    console.log(user+"created");
 }
 
 export default async function CreateAccount() {

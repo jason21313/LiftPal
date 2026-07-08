@@ -2,6 +2,7 @@
 
 import TransitionButton from "../../components/TransitionButton";
 import { useState, useRef } from "react";
+import {prisma} from "../../lib/prisma";
 
 type Item = {
     id: string;
@@ -42,6 +43,15 @@ export default function Fri_Create(){
         indexRef.current += 1;
     }
 
+    async function handleSubmit(formData: FormData) {
+        await createExercise(formData);
+    }
+
+    async function createExercise(formData: FormData) {
+        const data = Object.fromEntries(formData.entries());
+        console.log(data);
+    }
+
     return (
         <>
             <div>
@@ -51,11 +61,12 @@ export default function Fri_Create(){
                 <button onClick={addExercise}>Add Exercise</button>
                 <label style={{ display: 'block', marginTop: '10px' }}></label>
             </div>
-            <div>
+            <form action={handleSubmit}>
                 {items.map((item) => {
                     if (item.type === 'text' || item.type === 'number') {
                         return (
                             <input
+                                name={item.id}
                                 key={item.id}
                                 type={item.type}
                                 placeholder={item.placeholder}
@@ -69,8 +80,8 @@ export default function Fri_Create(){
                     }
                     return null;
                 })}
-            </div>
-            <button>Submit</button>
+                <button type="submit">Submit</button>
+            </form>
         </>
     )
 }
